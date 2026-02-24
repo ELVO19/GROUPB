@@ -36,12 +36,14 @@
 
     <!-- Example Student Cards -->
     <div class="row">
-        <div class="col-md-4">
+         {% for student in students %}
+           <div class="col-md-4">
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Software Engineering</h6>
-                    <p class="card-text">Age: 22<br>Email: jane@example.com</p>
+                    <h5 class="card-title">{{ student.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ student.course }}</h6>
+                    <p class="card-text">Age: {{ student.age }}<br>Email: {{ student.email }}<br>Gender: {{ student.gender }}</p>
+
                     <div class="card-actions">
                         <a href="#" class="btn btn-sm btn-primary">Edit</a>
                         <a href="#" class="btn btn-sm btn-danger">Delete</a>
@@ -49,21 +51,8 @@
                 </div>
             </div>
         </div>
-        <!-- Repeat card for more students -->
-        <div class="col-md-4">
-            <div class="card shadow-sm mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">John Smith</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Data Science</h6>
-                    <p class="card-text">Age: 24<br>Email: john@example.com</p>
-                    <div class="card-actions">
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Add more cards as needed -->
+         {% endfor %}
+
     </div>
 </div>
 
