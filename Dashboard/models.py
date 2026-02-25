@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class Student(models.Model):
@@ -13,7 +14,7 @@ class Student(models.Model):
             ('Female', 'Female'),
         ],
         default='Male',)
-
+    date = models.DateField()
     def __str__(self):
         return self.name
 

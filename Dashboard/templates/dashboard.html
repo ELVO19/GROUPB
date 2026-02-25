@@ -42,10 +42,10 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ student.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ student.course }}</h6>
-                    <p class="card-text">Age: {{ student.age }}<br>Email: {{ student.email }}<br>Gender: {{ student.gender }}</p>
+                    <p class="card-text">Age: {{ student.age }}<br>Email: {{ student.email }}<br>Gender: {{ student.gender }}<br>Date: {{ student.date }}</p>
 
                     <div class="card-actions">
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{% url 'update_student' student.id %}" class="btn btn-sm btn-primary">Edit</a>
                         <a href="#" class="btn btn-sm btn-danger">Delete</a>
                     </div>
                 </div>
