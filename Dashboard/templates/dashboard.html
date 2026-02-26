@@ -40,6 +40,9 @@
            <div class="col-md-4">
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
+                    {% if student.image %}
+                        <img src="{{ student.image.url }}" alt="" width="100px" class="card-img-top" style="height: 200px; object-fit: cover">
+                    {% endif %}
                     <h5 class="card-title">{{ student.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ student.course }}</h6>
                     <p class="card-text">Age: {{ student.age }}<br>Email: {{ student.email }}<br>Gender: {{ student.gender }}<br>Date: {{ student.date }}</p>

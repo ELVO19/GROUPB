@@ -10,13 +10,16 @@ def dashboard(request):
 
 def add_student(request):
     if request.method == 'POST':
+        image = request.FILES.get('image')
         name = request.POST.get('name')
         course = request.POST.get('course')
         age = request.POST.get('age')
         email = request.POST.get('email')
         gender = request.POST.get('gender')
         date = request.POST.get('date')
+
         Student.objects.create(
+            image=image,
             name=name,
             course=course,
             age=age,
