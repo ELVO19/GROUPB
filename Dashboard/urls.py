@@ -21,10 +21,10 @@ from Dashboard import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.dashboard, name='dashboard'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('addstudent/',views.add_student, name='add_student'),
     path('updatestudent/<int:id>/',views.update_student, name='update_student'),
-    path('sign_up/',views.sign_up, name='sign_up'),
+    path('',views.sign_up, name='sign_up'),
     path('login/',views.login_view, name='login'),
     path('logout/',views.logout_view, name='logout'),
     path('payment<int:id>/',views.payment, name='payment')

@@ -2,22 +2,368 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #1e40af 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-card {
+            background: #fff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Header */
+        .login-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 2.5rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-header::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.07);
+        }
+
+        .login-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30px; left: -30px;
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .avatar-icon {
+            width: 68px;
+            height: 68px;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-header h4 {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-header p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.85rem;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Body */
+        .login-body {
+            padding: 2rem;
+        }
+
+        .form-label-custom {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 7px;
+            display: block;
+        }
+
+        .input-wrap {
+            position: relative;
+            margin-bottom: 1.2rem;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .form-control-custom {
+            width: 100%;
+            padding: 13px 14px 13px 42px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            color: #111827;
+            background: #f9fafb;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .form-control-custom:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-control-custom::placeholder {
+            color: #9ca3af;
+        }
+
+        /* Toggle password */
+        .toggle-pw {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #9ca3af;
+            padding: 0;
+            z-index: 2;
+        }
+
+        .toggle-pw:hover { color: var(--primary); }
+
+        /* Remember me */
+        .remember-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .remember-row label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #374151;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .remember-row input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 15px;
+            height: 15px;
+        }
+
+        .forgot-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-link:hover { text-decoration: underline; }
+
+        /* Submit */
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn-login:active { transform: translateY(0); }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 1.5rem 0;
+            color: #d1d5db;
+            font-size: 0.8rem;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        /* Register link */
+        .register-row {
+            text-align: center;
+            font-size: 0.88rem;
+            color: #6b7280;
+        }
+
+        .register-row a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .register-row a:hover { text-decoration: underline; }
+
+        /* Footer */
+        .login-footer {
+            background: #f9fafb;
+            border-top: 1px solid #f3f4f6;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        .login-footer p {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-<h4>Login</h4>
-<form action="" method="POST">
-    {% csrf_token %}
-    <input type="text" name="username"
-    placeholder="Username" class="form-control">
-    <input type="password" name="password"
-    placeholder="Password" class="form-control">
-    <button type="submit" class="btn btn-primary">Login</button>
-     <p>
-        Don't have an account?
-        <a href="{% url 'sign_up' %}">Register Here</a>
-    </p>
-</form>
+
+<div class="login-wrapper">
+    <div class="login-card">
+
+        <!-- Header -->
+        <div class="login-header">
+            <div class="avatar-icon">👤</div>
+            <h4>Welcome Back</h4>
+            <p>Sign in to your account to continue</p>
+        </div>
+
+        <!-- Form -->
+        <div class="login-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                <!-- Username -->
+                <label class="form-label-custom">Username</label>
+                <div class="input-wrap">
+                    <span class="input-icon">👤</span>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Enter your username"
+                        class="form-control-custom"
+                        required
+                        autocomplete="username"
+                    >
+                </div>
+
+                <!-- Password -->
+                <label class="form-label-custom">Password</label>
+                <div class="input-wrap">
+                    <span class="input-icon">🔒</span>
+                    <input
+                        type="password"
+                        name="password"
+                        id="passwordInput"
+                        placeholder="Enter your password"
+                        class="form-control-custom"
+                        required
+                        autocomplete="current-password"
+                    >
+                    <button type="button" class="toggle-pw" onclick="togglePassword()" id="toggleBtn">👁️</button>
+                </div>
+
+                <!-- Remember + Forgot -->
+                <div class="remember-row">
+                    <label>
+                        <input type="checkbox" name="remember"> Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-login">
+                    🔑 Login
+                </button>
+
+                <div class="divider">or</div>
+
+                <!-- Register link -->
+                <div class="register-row">
+                    Don't have an account?
+                    <a href="{% url 'sign_up' %}">Register Here</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="login-footer">
+            <p>🔒 Your information is safe and encrypted</p>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function togglePassword() {
+        const input = document.getElementById('passwordInput');
+        const btn = document.getElementById('toggleBtn');
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.textContent = '🙈';
+        } else {
+            input.type = 'password';
+            btn.textContent = '👁️';
+        }
+    }
+</script>
 </body>
 </html>
